@@ -1,0 +1,113 @@
+<br />
+<div class="container p-2">
+  <!-- Titulo de noticia -->
+  <div class="card">
+    <div class="card-content">
+      <p class="title">
+        “There are two hard things in computer science: cache invalidation,
+        naming things, and off-by-one errors.”
+      </p>
+      <p class="subtitle">Jeff Atwood</p>
+    </div>
+    <footer class="card-footer">
+      <p class="card-footer-item">
+        <span>
+          View on
+          <a href="https://twitter.com/codinghorror/status/506010907021828096"
+            >Twitter</a
+          >
+        </span>
+      </p>
+      <p class="card-footer-item">
+        <span> Share on <a href="#">Facebook</a> </span>
+      </p>
+    </footer>
+  </div>
+  <!-- Comentarios -->
+  <br />
+  @for (comentario of comentarios(); track comentario._id) {
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <i class="fa-solid fa-circle-user fa-2xl"></i>
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ comentario.nombre }}</strong>
+          <small> {{ comentario.nombre }}</small>
+          <small>
+            {{ comentario.createdAt | date : "dd/MM/yyyy" }}
+          </small>
+          <br />
+          {{ comentario.comentario }}
+        </p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item">
+            <span class="icon is-small"
+              ><i class="fas fa-reply" (click)="reply(comentario._id!)"></i
+            ></span>
+          </a>
+          <a class="level-item">
+            <span class="icon is-small"
+              ><i class="fas fa-retweet" (click)="reTweet(comentario._id!)"></i
+            ></span>
+          </a>
+          <a class="level-item">
+            <span class="icon is-small"
+              ><i
+                class="fas fa-heart"
+                (click)="addToFavorite(comentario._id!)"
+              ></i
+            ></span>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="media-right">
+      <button class="delete" (click)="deleteComment(comentario._id!)"></button>
+    </div>
+  </article>
+  }
+  <!-- Formulario de entrada -->
+  <article class="media is-info">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <i class="fa-solid fa-comment fa-2xl"></i>
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          [(ngModel)]="nombre"
+          (ngModelChange)="nombre = $event"
+          placeholder="UserName"
+        />
+      </div>
+      <div class="field">
+        <p class="control">
+          <textarea
+            class="textarea"
+            [(ngModel)]="comentario"
+            (ngModelChange)="comentario = $event"
+            placeholder="Add a comment..."
+          ></textarea>
+        </p>
+      </div>
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <a class="button is-info" (click)="enviarComentario()"
+              ><i class="fas fa-comment"></i>Submit</a
+            >
+          </div>
+        </div>
+      </nav>
+    </div>
+  </article>
+</div>
